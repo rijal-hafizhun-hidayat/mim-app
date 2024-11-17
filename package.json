@@ -1,11 +1,17 @@
 {
   "name": "nuxt-app",
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
+    "@nuxt/fonts": "^0.10.2",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
+    "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
+    "fonts": "^0.0.2",
+    "module": "^1.2.5",
+    "nuxi": "^3.15.0",
     "nuxt": "^3.14.159",
     "postcss": "^8.4.49",
     "vue": "latest",
