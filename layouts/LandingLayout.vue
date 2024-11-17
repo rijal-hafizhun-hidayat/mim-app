@@ -116,25 +116,11 @@ const showingNavigationDropdown = ref(false);
           >
             <div class="pt-2 pb-3 space-y-1">
               <NuxtLink
-                to="/dashboard"
+                to="/support"
                 activeClass="border-indigo-500"
                 exactActiveClass="border-indigo-900"
                 class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-                >Beranda</NuxtLink
-              >
-              <NuxtLink
-                to="/notification"
-                activeClass="border-indigo-500"
-                exactActiveClass="border-indigo-900"
-                class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-                >notifikasi</NuxtLink
-              >
-              <NuxtLink
-                to="/search"
-                activeClass="border-indigo-500"
-                exactActiveClass="border-indigo-900"
-                class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-                >Cari</NuxtLink
+                >support me</NuxtLink
               >
             </div>
 
