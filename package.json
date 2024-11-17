@@ -15,6 +15,7 @@
     "nuxt": "^3.14.159",
     "postcss": "^8.4.49",
     "vue": "latest",
+    "vue-multiselect": "^3.1.0",
     "vue-router": "latest"
   },
   "private": true,
