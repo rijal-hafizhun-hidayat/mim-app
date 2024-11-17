@@ -1,11 +1,17 @@
 <script setup lang="ts">
-console.log(true);
+const router = useRouter();
 const words: Ref<string[]> = ref(["Mind"]);
+
+const createPost = () => {
+  return router.push({
+    name: "post-create",
+  });
+};
 </script>
 <template>
   <NuxtLayout name="landing-layout">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mt-10 px-4 py-6 relative space-y-10">
+      <div class="mt-12 px-4 py-6 relative space-y-10">
         <div class="text-center">
           <h1
             class="font-semibold lg:text-5xl sm:text-4xl uppercase text-slate-900"
@@ -21,7 +27,9 @@ const words: Ref<string[]> = ref(["Mind"]);
           </p>
         </div>
         <div class="flex justify-center space-x-4">
-          <BasePrimaryButton type="button">Post MEME</BasePrimaryButton>
+          <BasePrimaryButton @click="createPost()" type="button"
+            >Post MEME</BasePrimaryButton
+          >
           <BaseSecondaryButton type="button">Find MEME</BaseSecondaryButton>
         </div>
       </div>
