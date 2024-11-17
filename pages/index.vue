@@ -7,6 +7,12 @@ const createPost = () => {
     name: "post-create",
   });
 };
+
+const toMeme = () => {
+  return router.push({
+    name: "meme",
+  });
+};
 </script>
 <template>
   <NuxtLayout name="landing-layout">
@@ -30,7 +36,9 @@ const createPost = () => {
           <BasePrimaryButton @click="createPost()" type="button"
             >Post MEME</BasePrimaryButton
           >
-          <BaseSecondaryButton type="button">Find MEME</BaseSecondaryButton>
+          <BaseSecondaryButton @click="toMeme()" type="button"
+            >Find MEME</BaseSecondaryButton
+          >
         </div>
       </div>
     </div>
