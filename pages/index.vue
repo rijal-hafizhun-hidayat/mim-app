@@ -8,9 +8,9 @@ const createPost = () => {
   });
 };
 
-const toMeme = () => {
+const toPost = () => {
   return router.push({
-    name: "meme",
+    name: "post",
   });
 };
 </script>
@@ -36,7 +36,7 @@ const toMeme = () => {
           <BasePrimaryButton @click="createPost()" type="button"
             >Post MEME</BasePrimaryButton
           >
-          <BaseSecondaryButton @click="toMeme()" type="button"
+          <BaseSecondaryButton @click="toPost()" type="button"
             >Find MEME</BaseSecondaryButton
           >
         </div>
