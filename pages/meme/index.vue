@@ -40,6 +40,7 @@ const search = () => {
           </div>
           <div>
             <multiselect
+              class="block mt-1 w-full"
               v-model="selectedPostTypes"
               tag-placeholder="Add this as new tag"
               placeholder="Search or add a tag"
@@ -59,7 +60,22 @@ const search = () => {
 
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mt-10 px-4 py-6 overflow-x-auto border">
-        <p>ini content meme</p>
+        <article class="space-y-4">
+          <div class="flex flex-row space-x-2">
+            <p>Sender :</p>
+            <p>Bebs21</p>
+          </div>
+          <div class="text-balance">
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+          </div>
+          <div>
+            <BaseVideoPlayer
+              :source="'/video/example.mp4'"
+              :type="'video/mp4'"
+            />
+          </div>
+        </article>
       </div>
     </div>
   </NuxtLayout>
