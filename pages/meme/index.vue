@@ -65,6 +65,10 @@ const search = () => {
             <p>Sender :</p>
             <p>Bebs21</p>
           </div>
+          <div class="flex flex-row space-x-2">
+            <p>Meme Type:</p>
+            <BaseBadge />
+          </div>
           <div class="text-balance">
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
@@ -76,6 +80,9 @@ const search = () => {
             />
           </div>
         </article>
+      </div>
+      <div>
+        <MemeMore />
       </div>
     </div>
   </NuxtLayout>

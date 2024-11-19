@@ -1,5 +1,4 @@
 <script setup lang="ts">
-console.log(true);
 interface Form {
   name: string;
   content: string;
