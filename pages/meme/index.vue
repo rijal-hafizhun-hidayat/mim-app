@@ -77,6 +77,9 @@ const search = () => {
           </div>
         </article>
       </div>
+      <div>
+        <MemeMore />
+      </div>
     </div>
   </NuxtLayout>
 </template>
