@@ -39,7 +39,7 @@ const search = () => {
             />
           </div>
           <div>
-            <multiselect
+            <Multiselect
               class="block mt-1 w-full"
               v-model="selectedPostTypes"
               tag-placeholder="Add this as new tag"
@@ -49,7 +49,7 @@ const search = () => {
               :options="options"
               :multiple="true"
               :taggable="true"
-            ></multiselect>
+            ></Multiselect>
           </div>
           <div class="my-auto">
             <BasePrimaryButton type="submit">search</BasePrimaryButton>
