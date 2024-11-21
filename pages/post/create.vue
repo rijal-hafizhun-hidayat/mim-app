@@ -41,6 +41,7 @@ interface MemeType {
 
 const { $api, $swal } = useNuxtApp();
 const isLoading: Ref<boolean> = ref(false);
+const router = useRouter();
 const memeTypes: Ref<MemeType[]> = ref([]);
 const validation: Ref<Validation | null> = ref(null);
 const form: Form = reactive({
@@ -81,8 +82,6 @@ const send = async () => {
           body: formData,
         }
       );
-
-      console.log(sendPostFile);
     }
 
     $swal.fire({
@@ -96,6 +95,9 @@ const send = async () => {
     console.log(validation.value);
   } finally {
     isLoading.value = false;
+    router.push({
+      name: "post",
+    });
   }
 };
 
@@ -140,6 +142,8 @@ const getUploadData = (dataFile: FileUpload) => {
           <div>
             <BaseInputLabel>Meme Type</BaseInputLabel>
             <Multiselect
+              :close-on-select="false"
+              :clear-on-select="false"
               class="block mt-1 w-full"
               v-model="form.meme_types"
               tag-placeholder="Add this as new tag"
