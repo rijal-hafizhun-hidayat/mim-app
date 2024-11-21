@@ -14,6 +14,7 @@
     "nuxi": "^3.15.0",
     "nuxt": "^3.14.159",
     "postcss": "^8.4.49",
+    "sweetalert2": "^11.14.5",
     "vue": "latest",
     "vue-multiselect": "^3.1.0",
     "vue-router": "latest"
