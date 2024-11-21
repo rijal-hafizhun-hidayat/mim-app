@@ -40,6 +40,7 @@ interface MemeType {
 }
 
 const { $api, $swal } = useNuxtApp();
+const isLoading: Ref<boolean> = ref(false);
 const memeTypes: Ref<MemeType[]> = ref([]);
 const validation: Ref<Validation | null> = ref(null);
 const form: Form = reactive({
@@ -59,6 +60,7 @@ if (data.value) {
 
 const send = async () => {
   try {
+    isLoading.value = true;
     const result = await $api<Result>("post", {
       method: "post",
       body: {
@@ -92,6 +94,8 @@ const send = async () => {
     const err = error.data as Validation;
     validation.value = err;
     console.log(validation.value);
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -161,7 +165,12 @@ const getUploadData = (dataFile: FileUpload) => {
             />
           </div>
           <div>
-            <BasePrimaryButton type="submit">send</BasePrimaryButton>
+            <BasePrimaryButton
+              type="submit"
+              :disabled="isLoading == true"
+              :class="{ 'opacity-75': isLoading == true }"
+              >send</BasePrimaryButton
+            >
           </div>
         </form>
       </div>
