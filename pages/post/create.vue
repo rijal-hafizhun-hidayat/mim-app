@@ -3,7 +3,26 @@ interface Form {
   name: string;
   content: string;
   file: File | string;
-  post_type: PostType[];
+  meme_types: MemeType[] | string;
+}
+interface Result {
+  statusCode: number;
+  message: string;
+  data: Post;
+}
+interface Post {
+  content: string;
+  created_at: Date;
+  id: number;
+  name: string;
+  updated_at: Date;
+}
+interface Fetch {
+  data: MemeType[];
+}
+interface Validation {
+  statusCode: number;
+  errors: Record<string, string[]>;
 }
 interface FileUpload {
   file: File | string;
@@ -15,25 +34,65 @@ interface FileUpload {
   isImage: Boolean;
   isUploaded: Boolean;
 }
-interface PostType {
+interface MemeType {
   name: string;
   code: string;
 }
 
-const options: Ref<PostType[]> = ref([
-  { name: "Vue.js", code: "vu" },
-  { name: "Javascript", code: "js" },
-  { name: "Open Source", code: "os" },
-]);
+const { $api, $swal } = useNuxtApp();
+const memeTypes: Ref<MemeType[]> = ref([]);
+const validation: Ref<Validation | null> = ref(null);
 const form: Form = reactive({
   name: "",
   content: "",
   file: "",
-  post_type: [],
+  meme_types: [],
 });
 
-const send = () => {
-  console.log(form);
+const { data, error } = await useCustomFetch<Fetch>("meme_type");
+if (data.value) {
+  memeTypes.value = data.value.data;
+  console.log(memeTypes.value);
+} else if (error.value) {
+  console.log(error.value);
+}
+
+const send = async () => {
+  try {
+    const result = await $api<Result>("post", {
+      method: "post",
+      body: {
+        name: form.name,
+        content: form.content,
+        meme_types: form.meme_types,
+      },
+    });
+
+    if (form.file) {
+      const formData = new FormData();
+      formData.append("file", form.file);
+
+      const sendPostFile = await $api(
+        `storage/post/${result.data.id}/post_file`,
+        {
+          method: "post",
+          body: formData,
+        }
+      );
+
+      console.log(sendPostFile);
+    }
+
+    $swal.fire({
+      title: "success",
+      text: result.message,
+      icon: "success",
+    });
+  } catch (error: any) {
+    const err = error.data as Validation;
+    validation.value = err;
+    console.log(validation.value);
+  }
 };
 
 const getUploadData = (dataFile: FileUpload) => {
@@ -57,6 +116,10 @@ const getUploadData = (dataFile: FileUpload) => {
               class="block mt-1 w-full"
               v-model="form.name"
             />
+            <BaseInputError
+              v-if="validation && validation.errors.name"
+              :message="validation.errors.name[0]"
+            />
           </div>
           <div>
             <BaseInputLabel>Content Meme</BaseInputLabel>
@@ -64,21 +127,29 @@ const getUploadData = (dataFile: FileUpload) => {
               rows="8"
               v-model="form.content"
               class="block mt-1 w-full"
-            ></BaseTextAreaInput>
+            />
+            <BaseInputError
+              v-if="validation && validation.errors.content"
+              :message="validation.errors.content[0]"
+            />
           </div>
           <div>
             <BaseInputLabel>Meme Type</BaseInputLabel>
             <Multiselect
               class="block mt-1 w-full"
-              v-model="form.post_type"
+              v-model="form.meme_types"
               tag-placeholder="Add this as new tag"
               placeholder="Search or add a tag"
               label="name"
-              track-by="code"
-              :options="options"
+              track-by="id"
+              :options="memeTypes"
               :multiple="true"
               :taggable="true"
             ></Multiselect>
+            <BaseInputError
+              v-if="validation && validation.errors.meme_types"
+              :message="validation.errors.meme_types[0]"
+            />
           </div>
           <div>
             <BaseInputLabel>Upload File</BaseInputLabel>
