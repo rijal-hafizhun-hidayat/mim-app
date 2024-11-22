@@ -19,6 +19,7 @@ interface PostFile {
   path: string;
   post_id: number;
   updated_at: Date;
+  type_file: string;
 }
 interface PostTypesWithMemeType {
   created_at: Date;
@@ -66,11 +67,13 @@ if (data.value) {
           <div class="text-balance">
             {{ post.content }}
           </div>
-          <div>
+          <div v-if="post.post_file">
             <BaseVideoPlayer
-              :source="'/video/example.mp4'"
-              :type="'video/mp4'"
+              v-if="post.post_file.type_file === 'video/mp4'"
+              :source="post.post_file.path"
+              :type="post.post_file.type_file"
             />
+            <BaseImage v-else :src_img="post.post_file.path" />
           </div>
         </article>
       </div>
