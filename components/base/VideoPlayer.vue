@@ -1,29 +1,54 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   source: string;
   type?: string;
 }>();
+
+const videoRef: Ref<HTMLVideoElement | null> = ref(null);
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = videoRef.value;
+
+        if (video) {
+          if (entry.isIntersecting) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        }
+      });
+    },
+    {
+      threshold: 0.5,
+    }
+  );
+
+  if (videoRef.value) {
+    observer.observe(videoRef.value);
+  }
+
+  onUnmounted(() => {
+    if (videoRef.value) {
+      observer.unobserve(videoRef.value);
+    } else {
+      observer.disconnect();
+    }
+  });
+});
 </script>
 
 <template>
   <div class="relative w-full h-96 overflow-hidden">
-    <video class="absolute w-full h-full" controls controlsList="nodownload">
-      <source :src="props.source" :type="props.type" />
+    <video
+      ref="videoRef"
+      class="absolute w-full h-full"
+      controls
+      controlsList="nodownload"
+    >
+      <source :src="source" :type="type" />
     </video>
   </div>
 </template>
-<!-- <style scoped>
-.video-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 70%; /* Aspect ratio 16:9 */
-  height: 0;
-  overflow: hidden;
-}
-
-.responsive-video {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-</style> -->
