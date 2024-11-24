@@ -4,6 +4,10 @@ interface Fetch {
   message: string;
   data: Posts[];
 }
+interface Form {
+  search: string;
+  meme_types: MemeType[];
+}
 interface Posts {
   content: string;
   created_at: Date;
@@ -33,9 +37,12 @@ interface MemeType {
   id: number;
   created_at: Date;
   name: string;
+  background_color: string;
+  text_color: string;
   updated_at: Date;
 }
 
+const { $api } = useNuxtApp();
 const posts: Ref<Posts[]> = ref([]);
 
 const { data, error } = await useCustomFetch<Fetch>("post");
@@ -45,11 +52,27 @@ if (data.value) {
 } else if (error.value) {
   console.log(error.value);
 }
+
+const getSearchData = async (searchData: Form) => {
+  //console.log(searchData.meme_types);
+  try {
+    const result: Fetch = await $api<Fetch>("post", {
+      query: {
+        search: searchData.search,
+        meme_types: searchData.meme_types as MemeType[],
+      },
+    });
+    posts.value = result.data;
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 <template>
   <NuxtLayout name="landing-layout">
-    <PostSearch />
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <PostSearch @search="getSearchData" />
+    <div v-if="posts.length > 0" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
         v-for="post in posts"
         :key="post.id"
@@ -76,6 +99,14 @@ if (data.value) {
             <BaseImage v-else :src_img="post.post_file.path" />
           </div>
         </article>
+      </div>
+      <div>
+        <PostMore />
+      </div>
+    </div>
+    <div v-else class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mt-10 px-4 py-6 overflow-x-auto border">
+        <p class="text-center">no post found</p>
       </div>
       <div>
         <PostMore />

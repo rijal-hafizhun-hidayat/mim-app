@@ -13,12 +13,17 @@ interface MemeType {
   name: string;
   created_at: Date;
   updated_at: Date;
+  background_color: string;
+  text_color: string;
 }
 
+const emit = defineEmits<{
+  search: [value: Form];
+}>();
 const memeTypes: Ref<MemeType[]> = ref([]);
 const form: Form = reactive({
   search: "",
-  meme_types: [],
+  meme_types: [] as MemeType[],
 });
 
 const { data, error } = await useCustomFetch<Fetch>("meme_type");
@@ -29,7 +34,7 @@ if (data.value) {
 }
 
 const search = () => {
-  console.log(form);
+  emit("search", form);
 };
 </script>
 
