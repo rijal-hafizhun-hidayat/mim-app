@@ -44,6 +44,11 @@ interface MemeType {
 
 const { $api } = useNuxtApp();
 const posts: Ref<Posts[]> = ref([]);
+const cursor: Ref<number> = ref(2);
+const form: Form = reactive({
+  search: "",
+  meme_types: [],
+});
 
 const { data, error } = await useCustomFetch<Fetch>("post");
 if (data.value) {
@@ -54,10 +59,12 @@ if (data.value) {
 }
 
 const getSearchData = async (searchData: Form) => {
-  //console.log(searchData.meme_types);
+  setReactiveStateForm(searchData);
+
   try {
     const result: Fetch = await $api<Fetch>("post", {
       query: {
+        cursor: cursor.value,
         search: searchData.search,
         meme_types: searchData.meme_types as MemeType[],
       },
@@ -67,6 +74,27 @@ const getSearchData = async (searchData: Form) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const cursorPaginationPost = async () => {
+  try {
+    const result: Fetch = await $api<Fetch>("post", {
+      query: {
+        cursor: (cursor.value += 2),
+        search: form.search,
+        meme_types: form.meme_types as MemeType[],
+      },
+    });
+    posts.value = result.data;
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const setReactiveStateForm = (state: Form) => {
+  form.search = state.search;
+  form.meme_types = state.meme_types;
 };
 </script>
 <template>
@@ -101,15 +129,12 @@ const getSearchData = async (searchData: Form) => {
         </article>
       </div>
       <div>
-        <PostMore />
+        <PostCursorPagination @click="cursorPaginationPost" />
       </div>
     </div>
     <div v-else class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mt-10 px-4 py-6 overflow-x-auto border">
         <p class="text-center">no post found</p>
-      </div>
-      <div>
-        <PostMore />
       </div>
     </div>
   </NuxtLayout>
