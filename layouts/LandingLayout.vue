@@ -1,5 +1,18 @@
 <script setup lang="ts">
 const showingNavigationDropdown = ref(false);
+const router = useRouter();
+
+const toPostCreate = () => {
+  return router.push({
+    name: "post-create",
+  });
+};
+
+const toSupport = () => {
+  return router.push({
+    name: "support",
+  });
+};
 </script>
 <template>
   <div>
@@ -14,16 +27,6 @@ const showingNavigationDropdown = ref(false);
                     class="block fill-current text-gray-800"
                   />
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                  <NuxtLink
-                    active-class="border-indigo-700"
-                    inactive-class="border-indigo-500"
-                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
-                    to="/support"
-                  >
-                    support me
-                  </NuxtLink>
-                </div>
               </div>
 
               <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -35,7 +38,7 @@ const showingNavigationDropdown = ref(false);
                           type="button"
                           class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                         >
-                          {{ "test" }}
+                          {{ "menu" }}
 
                           <svg
                             class="ml-2 -mr-0.5 h-4 w-4"
@@ -54,14 +57,16 @@ const showingNavigationDropdown = ref(false);
                     </template>
                     <template #content>
                       <a
+                        @click="toSupport()"
                         class="cursor-pointer block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                       >
-                        Profile
+                        Support
                       </a>
                       <a
+                        @click="toPostCreate()"
                         class="cursor-pointer block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                       >
-                        Logout
+                        Post Mim
                       </a>
                     </template>
                   </BaseDropdown>
@@ -120,32 +125,18 @@ const showingNavigationDropdown = ref(false);
                 activeClass="border-indigo-500"
                 exactActiveClass="border-indigo-900"
                 class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-                >support me</NuxtLink
+                >Support</NuxtLink
+              >
+              <NuxtLink
+                to="/post/create"
+                activeClass="border-indigo-500"
+                exactActiveClass="border-indigo-900"
+                class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+                >Post Mim</NuxtLink
               >
             </div>
 
             <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200">
-              <div class="px-4">
-                <div class="font-medium text-base text-gray-800">
-                  {{ "test" }}
-                </div>
-                <div class="font-medium text-sm text-gray-500">
-                  {{ "test" }}
-                </div>
-              </div>
-
-              <div class="mt-3 space-y-1">
-                <a
-                  class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-                  >Profile</a
-                >
-                <a
-                  class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-                  >Logout</a
-                >
-              </div>
-            </div>
           </div>
         </nav>
 
