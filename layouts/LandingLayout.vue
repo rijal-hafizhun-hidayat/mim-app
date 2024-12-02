@@ -2,9 +2,9 @@
 const showingNavigationDropdown = ref(false);
 const router = useRouter();
 
-const toPost = () => {
+const toPostCreate = () => {
   return router.push({
-    name: "post",
+    name: "post-create",
   });
 };
 
@@ -63,7 +63,7 @@ const toSupport = () => {
                         Support
                       </a>
                       <a
-                        @click="toPost()"
+                        @click="toPostCreate()"
                         class="cursor-pointer block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                       >
                         Post Mim
@@ -128,7 +128,7 @@ const toSupport = () => {
                 >Support</NuxtLink
               >
               <NuxtLink
-                to="/post"
+                to="/post/create"
                 activeClass="border-indigo-500"
                 exactActiveClass="border-indigo-900"
                 class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
