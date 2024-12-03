@@ -13,6 +13,12 @@ const toSupport = () => {
     name: "support",
   });
 };
+
+const toFeedback = () => {
+  return router.push({
+    name: "feedback",
+  });
+};
 </script>
 <template>
   <div>
@@ -67,6 +73,12 @@ const toSupport = () => {
                         class="cursor-pointer block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                       >
                         Post Mim
+                      </a>
+                      <a
+                        @click="toFeedback()"
+                        class="cursor-pointer block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                      >
+                        Feedback
                       </a>
                     </template>
                   </BaseDropdown>
@@ -133,6 +145,13 @@ const toSupport = () => {
                 exactActiveClass="border-indigo-900"
                 class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
                 >Post Mim</NuxtLink
+              >
+              <NuxtLink
+                to="/feedback"
+                activeClass="border-indigo-500"
+                exactActiveClass="border-indigo-900"
+                class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+                >Feedback</NuxtLink
               >
             </div>
 
