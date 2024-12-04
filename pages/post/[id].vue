@@ -2,12 +2,7 @@
 interface Fetch {
   statusCode: number;
   message: string;
-  data: PostsWithPostFileAndPostTypes[];
-  post_count: number;
-}
-interface Form {
-  search: string;
-  meme_types: MemeType[];
+  data: PostsWithPostFileAndPostTypes;
 }
 interface PostsWithPostFileAndPostTypes {
   content: string;
@@ -43,72 +38,17 @@ interface MemeType {
   updated_at: Date;
 }
 
+const { $swal } = useNuxtApp();
 const route = useRoute();
-const { $api, $swal } = useNuxtApp();
-const posts: Ref<PostsWithPostFileAndPostTypes[]> = ref([]);
-const countAllPosts: Ref<number> = ref(0);
-const cursor: Ref<number> = ref(2);
-const form: Form = reactive({
-  search: "",
-  meme_types: [],
-});
+const post: Ref<PostsWithPostFileAndPostTypes | null> = ref(null);
 
-const { data, error } = await useCustomFetch<Fetch>("post");
+const { data, error } = await useCustomFetch<Fetch>(`post/${route.params.id}`);
 if (data.value) {
-  posts.value = data.value.data;
-  countAllPosts.value = data.value.post_count;
-  console.log(data.value);
-  console.log(countAllPosts.value);
+  post.value = data.value.data as PostsWithPostFileAndPostTypes;
+  console.log(post.value);
 } else if (error.value) {
   console.log(error.value);
 }
-
-const getSearchData = async (searchData: Form) => {
-  setReactiveStateForm(searchData);
-
-  try {
-    const result: Fetch = await $api<Fetch>("post", {
-      query: {
-        cursor: cursor.value,
-        search: searchData.search,
-        meme_types: searchData.meme_types as MemeType[],
-      },
-    });
-    posts.value = result.data;
-    console.log(result);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const cursorPaginationPost = async (postLength: number) => {
-  if (countAllPosts.value > postLength) {
-    try {
-      const result: Fetch = await $api<Fetch>("post", {
-        query: {
-          cursor: (cursor.value += 2),
-          search: form.search,
-          meme_types: form.meme_types as MemeType[],
-        },
-      });
-      posts.value = result.data;
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    $swal.fire({
-      title: "info!",
-      text: "this is maximum post",
-      icon: "info",
-    });
-  }
-};
-
-const setReactiveStateForm = (state: Form) => {
-  form.search = state.search;
-  form.meme_types = state.meme_types;
-};
 
 const copyLink = (postId: number) => {
   navigator.clipboard.writeText(`${route.fullPath}/${postId}`);
@@ -121,13 +61,8 @@ const copyLink = (postId: number) => {
 </script>
 <template>
   <NuxtLayout name="landing-layout">
-    <PostSearch @search="getSearchData" />
-    <div v-if="posts.length > 0" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div
-        v-for="post in posts"
-        :key="post.id"
-        class="mt-10 px-4 py-6 overflow-x-auto border"
-      >
+    <div v-if="post" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mt-10 px-4 py-6 overflow-x-auto border">
         <article class="space-y-4">
           <div class="flex justify-between">
             <div class="flex flex-row space-x-2">
@@ -178,9 +113,6 @@ const copyLink = (postId: number) => {
             <BaseImage v-else :src_img="post.post_file.path" />
           </div>
         </article>
-      </div>
-      <div>
-        <PostCursorPagination @click="cursorPaginationPost(posts.length)" />
       </div>
     </div>
     <div v-else class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
