@@ -75,6 +75,7 @@ const getSearchData = async (searchData: Form) => {
       },
     });
     posts.value = result.data;
+    countAllPosts.value = result.post_count;
     console.log(result);
   } catch (error) {
     console.log(error);
@@ -92,6 +93,7 @@ const cursorPaginationPost = async (postLength: number) => {
         },
       });
       posts.value = result.data;
+      countAllPosts.value = result.post_count;
       console.log(result);
     } catch (error) {
       console.log(error);
