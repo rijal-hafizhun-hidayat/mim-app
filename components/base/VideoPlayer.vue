@@ -14,6 +14,7 @@ onMounted(() => {
 
         if (video) {
           if (entry.isIntersecting) {
+            video.currentTime = 0;
             video.play();
           } else {
             video.pause();
