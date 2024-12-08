@@ -1,7 +1,8 @@
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
   const api = $fetch.create({
     baseURL: "http://localhost:8000/api",
-    onRequest({ request, options, error }) {
+    onRequest({ request }) {
+      console.log(request);
       // if (token.value) {
       //   options.credentials = "include";
       // }
