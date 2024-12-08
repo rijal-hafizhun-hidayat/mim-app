@@ -113,10 +113,11 @@ const setReactiveStateForm = (state: Form) => {
 };
 
 const copyLink = (postId: number) => {
-  navigator.clipboard.writeText(`${route.fullPath}/${postId}`);
+  const config = useRuntimeConfig();
+  const path: string = `${config.public.urlBase + route.fullPath}/${postId}`;
   $swal.fire({
-    title: "success",
-    text: "copy link success",
+    title: "copy this url",
+    text: path,
     icon: "success",
   });
 };
@@ -137,7 +138,7 @@ const copyLink = (postId: number) => {
               <p>{{ post.name }}</p>
             </div>
             <div>
-              <div class="hidden sm:flex sm:items-center sm:ml-6">
+              <div class="sm:flex sm:items-center sm:ml-6">
                 <div class="ml-3 relative">
                   <BaseDropdown align="right" width="48">
                     <template #trigger>
