@@ -1,5 +1,7 @@
 <script setup lang="ts">
-console.log(true);
+const toSaweria = () => {
+  return window.open("https://saweria.co/bebs21", "_blank");
+};
 </script>
 <template>
   <NuxtLayout name="landing-layout">
@@ -16,8 +18,9 @@ console.log(true);
           </p>
         </div>
         <div class="flex justify-center space-x-4">
-          <BasePrimaryButton type="button">social buzz</BasePrimaryButton>
-          <BasePrimaryButton type="button">saweria</BasePrimaryButton>
+          <BasePrimaryButton @click="toSaweria()" type="button"
+            >saweria</BasePrimaryButton
+          >
         </div>
       </div>
     </div>
