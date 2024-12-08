@@ -1,7 +1,7 @@
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
   const api = $fetch.create({
-    baseURL: config.public.apiBase,
+    baseURL: config.public.apiBase || "http://localhost:8000/api",
     onRequest({ request }) {
       console.log(request);
       // if (token.value) {
