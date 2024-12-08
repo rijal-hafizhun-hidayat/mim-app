@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.BASE_URL_API || "http://localhost:8000/api",
+    },
+  },
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   css: ["vue-multiselect/dist/vue-multiselect.min.css"],
