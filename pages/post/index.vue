@@ -47,7 +47,7 @@ const route = useRoute();
 const { $api, $swal } = useNuxtApp();
 const posts: Ref<PostsWithPostFileAndPostTypes[]> = ref([]);
 const countAllPosts: Ref<number> = ref(0);
-const cursor: Ref<number> = ref(2);
+const cursor: Ref<number> = ref(5);
 const form: Form = reactive({
   search: "",
   meme_types: [],
