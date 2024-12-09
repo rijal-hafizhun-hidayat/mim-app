@@ -164,7 +164,7 @@ const getUploadData = (dataFile: FileUpload) => {
           <div>
             <BaseInputLabel>Upload File</BaseInputLabel>
             <BaseFileUpload
-              :maxSize="2"
+              :maxSize="3"
               :accept="'png,jpg,jpeg,mkv,mp4'"
               class="block mt-1 w-full"
               @file-upload="getUploadData"
