@@ -13,7 +13,7 @@
       </li>
       <li class="text-white">
         <span class="text-yellow-300"
-          >maksimum upload file is <span class="font-medium">3 mb</span></span
+          >maksimum upload file is <span class="font-medium">7 mb</span></span
         >
       </li>
     </ul>
